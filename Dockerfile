@@ -1,31 +1,27 @@
-# ---------------------------
 # Stage 1: Build
-# ---------------------------
 FROM node:18-alpine AS builder
-
-# Set working directory
 WORKDIR /app
 
-# Install build dependencies
-RUN apk add --no-cache python3 make g++ 
+# Install build tools
+RUN apk add --no-cache python3 make g++ bash git
 
-# Copy package.json and package-lock.json
+# Copy package files
 COPY package*.json ./
 
-# Install all dependencies (including devDependencies)
+# Install all dependencies (including dev)
 RUN npm ci
 
 # Copy source code
 COPY . .
 
-# Build TypeScript
+# Make sure all scripts are executable
+RUN chmod +x ./scripts/*.sh || true
+
+# Build
 RUN npm run build
 
-# ---------------------------
 # Stage 2: Production
-# ---------------------------
 FROM node:18-alpine AS production
-
 WORKDIR /app
 
 # Copy only package.json and package-lock.json
@@ -37,8 +33,5 @@ RUN npm ci --omit=dev
 # Copy built files from builder
 COPY --from=builder /app/dist ./dist
 
-# Expose the app port
 EXPOSE 3000
-
-# Start the app
 CMD ["node", "dist/index.js"]
