@@ -1,0 +1,21 @@
+import mongoose, { Schema } from 'mongoose';
+const bookschema = new Schema({
+    title: { type: String, required: true },
+    description: String,
+    genre: String,
+    category: String,
+    status: {
+        type: String,
+        enum: ["draft", "published"],
+        default: "draft"
+    },
+    tags: { type: [String], required: true },
+    coverImage: String,
+    totalReads: { type: Number, default: 0 },
+    averageRating: { type: Number, default: 0 },
+    author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    published: { type: Boolean, default: false },
+    createdAt: { type: Date, default: Date.now }
+}, { timestamps: true });
+export default mongoose.model('book', bookschema);
+//# sourceMappingURL=book.js.map
