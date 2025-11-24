@@ -1,4 +1,3 @@
-// src/types/express/index.d.ts
 import type { Document } from "mongoose";
 
 declare global {
