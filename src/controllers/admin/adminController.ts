@@ -1,8 +1,8 @@
 // controllers/adminController.ts
 
-import User from "../../models/admin/user"
-import Book from "../../models/admin/book";
-import Report from "../../models/admin/report"
+import User from "../../models/admin/user.js"
+import Book from "../../models/admin/book.js";
+import Report from "../../models/admin/report.js"
 import { Request, Response } from "express";
 
 export const getAllUsers = async (req: Request, res: Response) => {
