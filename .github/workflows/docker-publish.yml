@@ -31,7 +31,7 @@ jobs:
           context: .
           push: true
           tags: |
-            docker.io/theertha301995/hh-docker:latest
-            docker.io/theertha301995/hh-docker:${{ github.sha }}
+            docker.io/theertha301995/test-hh-docker:latest
+            docker.io/theertha301995/test-hh-docker:${{ github.sha }}
           cache-from: type=registry,ref=docker.io/theertha301995/hh-docker:latest
           cache-to: type=registry,ref=docker.io/theertha301995/hh-docker:latest,mode=max
